@@ -95,7 +95,6 @@ class _CustomInputState extends State<CustomInput> {
   }
 
   InputDecoration _buildInputDecoration(BuildContext context) {
-    final theme = Theme.of(context);
     return InputDecoration(
       hintText: widget.hint,
       prefixIcon: widget.icon != null ? Icon(widget.icon) : null,
