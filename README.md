@@ -13,20 +13,20 @@ A Flutter package with reusable custom widgets. Starting with `CustomInput`, thi
 Add `ready_widgets:` to your **pubspec.yaml** dependencies, then run:
 
 ```bash
-flutter pub get
-yaml
-Copy
-Edit
 dependencies:
   ready_widgets:
 ```
+then
+```bash
+flutter pub get
+```
+---
+## 📚 How to Use
 
-```dart
 Add this line to import the package:
+```dart
 import 'package:ready_widgets/ready_widgets.dart';
 ```
-
-## 📚 How to Use
 
 #### Basic Input
 ```dart
@@ -78,5 +78,8 @@ CustomInput(
   isObscure: true,
 ),
 ```
+---
 ## ☕ Support Me
 <a href="https://www.buymeacoffee.com/chandabdullah21" target="_blank"> <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;"> </a> 
+
+---
