@@ -6,7 +6,7 @@ enum InputDecorationType { outlined, underlined }
 class CustomInput extends StatefulWidget {
   const CustomInput({
     super.key,
-    this.icon,
+    this.prefixIcon,
     this.title,
     this.hint,
     this.isObscure = false,
@@ -27,7 +27,7 @@ class CustomInput extends StatefulWidget {
     this.decorationType = InputDecorationType.outlined,
   });
 
-  final IconData? icon;
+  final Icon? prefixIcon;
   final String? title;
   final String? hint;
   final bool isObscure;
@@ -97,7 +97,7 @@ class _CustomInputState extends State<CustomInput> {
   InputDecoration _buildInputDecoration(BuildContext context) {
     return InputDecoration(
       hintText: widget.hint,
-      prefixIcon: widget.icon != null ? Icon(widget.icon) : null,
+      prefixIcon: widget.prefixIcon,
       suffixIcon:
           widget.suffixIcon ??
           (widget.isObscure

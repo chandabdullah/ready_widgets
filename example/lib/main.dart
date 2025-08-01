@@ -17,10 +17,48 @@ class MyExampleApp extends StatelessWidget {
         appBar: AppBar(title: const Text('Ready Widgets Example')),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: CustomInput(
-            title: 'Name',
-            hint: 'Enter your name',
-            controller: controller,
+          child: Column(
+            children: [
+              Text("Inputs", style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 20),
+              CustomInput(
+                title: 'Name',
+                hint: 'Enter your name',
+                controller: controller,
+              ),
+              const SizedBox(height: 20),
+              CustomInput(
+                title: 'Disabled Input',
+                hint: 'This input is disabled',
+                enabled: false,
+              ),
+              const SizedBox(height: 20),
+              CustomInput(
+                title: 'Read-Only Input',
+                hint: 'This input is read-only',
+                readOnly: true,
+              ),
+              const SizedBox(height: 20),
+              CustomInput(
+                title: 'Suffix Icon Input',
+                hint: 'This input has a suffix icon',
+                suffixIcon: Icon(Icons.info_outline),
+              ),
+              const SizedBox(height: 20),
+              CustomInput(
+                title: 'Prefix Icon Input',
+                hint: 'This input has a prefix icon',
+                prefixIcon: Icon(Icons.info_outline),
+              ),
+              const SizedBox(height: 20),
+              CustomInput(
+                title: 'Obscure Input',
+                hint: 'Enter password',
+                prefixIcon: Icon(Icons.lock),
+                suffixIcon: Icon(Icons.visibility_off),
+                isObscure: true,
+              ),
+            ],
           ),
         ),
       ),
