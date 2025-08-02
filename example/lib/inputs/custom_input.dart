@@ -3,6 +3,15 @@ import 'package:flutter/services.dart';
 
 enum InputDecorationType { outlined, underlined }
 
+class CursorStyleData {
+  final Color? color;
+  final double? height;
+  final double? width;
+  final Radius? radius;
+
+  const CursorStyleData({this.color, this.height, this.width, this.radius});
+}
+
 class ReadyInput extends StatefulWidget {
   const ReadyInput({
     super.key,
@@ -10,6 +19,7 @@ class ReadyInput extends StatefulWidget {
     this.title,
     this.hint,
     this.isObscure = false,
+    this.autovalidateMode,
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.controller,
@@ -25,6 +35,19 @@ class ReadyInput extends StatefulWidget {
     this.maxLength,
     this.inputFormatters,
     this.decorationType = InputDecorationType.outlined,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.textCapitalization = TextCapitalization.none,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.style,
+    this.cursorStyle,
+    this.enableSuggestions = true,
+    this.enableInteractiveSelection = true,
+    this.buildCounter,
+    this.expands = false,
+    this.onEditingComplete,
+    this.scrollPadding = const EdgeInsets.all(20.0),
   });
 
   final Icon? prefixIcon;
@@ -34,6 +57,7 @@ class ReadyInput extends StatefulWidget {
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final TextEditingController? controller;
+  final AutovalidateMode? autovalidateMode;
   final String? Function(String?)? validator;
   final bool enabled;
   final bool autoFocus;
@@ -46,6 +70,25 @@ class ReadyInput extends StatefulWidget {
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
   final InputDecorationType decorationType;
+  final FocusNode? focusNode;
+  final void Function(String)? onFieldSubmitted;
+  final TextCapitalization textCapitalization;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
+  final TextStyle? style;
+  final CursorStyleData? cursorStyle;
+  final bool enableSuggestions;
+  final bool enableInteractiveSelection;
+  final Widget? Function(
+    BuildContext, {
+    int currentLength,
+    bool isFocused,
+    int? maxLength,
+  })?
+  buildCounter;
+  final bool expands;
+  final VoidCallback? onEditingComplete;
+  final EdgeInsets scrollPadding;
 
   @override
   State<ReadyInput> createState() => _ReadyInputState();
@@ -73,6 +116,8 @@ class _ReadyInputState extends State<ReadyInput> {
             child: Text(widget.title!, style: theme.textTheme.bodyMedium),
           ),
         TextFormField(
+          
+          autovalidateMode: widget.autovalidateMode,
           controller: widget.controller,
           obscureText: widget.isObscure && !showPassword,
           enabled: widget.enabled,
@@ -88,6 +133,22 @@ class _ReadyInputState extends State<ReadyInput> {
           minLines: widget.isObscure ? 1 : widget.minLines,
           maxLines:
               widget.isObscure ? 1 : widget.maxLines ?? widget.minLines + 1,
+          focusNode: widget.focusNode,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          textCapitalization: widget.textCapitalization,
+          textAlign: widget.textAlign,
+          textAlignVertical: widget.textAlignVertical,
+          style: widget.style,
+          cursorColor: widget.cursorStyle?.color,
+          cursorHeight: widget.cursorStyle?.height,
+          cursorWidth: widget.cursorStyle?.width ?? 2,
+          cursorRadius: widget.cursorStyle?.radius,
+          enableSuggestions: widget.enableSuggestions,
+          enableInteractiveSelection: widget.enableInteractiveSelection,
+          buildCounter: widget.buildCounter,
+          expands: widget.expands,
+          onEditingComplete: widget.onEditingComplete,
+          scrollPadding: widget.scrollPadding,
           decoration: _buildInputDecoration(context),
         ),
       ],
@@ -98,40 +159,43 @@ class _ReadyInputState extends State<ReadyInput> {
     return InputDecoration(
       hintText: widget.hint,
       prefixIcon: widget.prefixIcon,
-      suffixIcon: widget.suffixIcon ??
+      suffixIcon:
+          widget.suffixIcon ??
           (widget.isObscure
               ? IconButton(
-                  icon: Icon(
-                    showPassword ? Icons.visibility_off : Icons.visibility,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      showPassword = !showPassword;
-                    });
-                  },
-                )
+                icon: Icon(
+                  showPassword ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    showPassword = !showPassword;
+                  });
+                },
+              )
               : null),
-      border: widget.decorationType == InputDecorationType.outlined
-          ? OutlineInputBorder(borderRadius: BorderRadius.circular(8))
-          : const UnderlineInputBorder(),
-      enabledBorder: widget.decorationType == InputDecorationType.outlined
-          ? OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey.shade400),
-            )
-          : UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
-            ),
-      focusedBorder: widget.decorationType == InputDecorationType.outlined
-          ? OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Theme.of(context).primaryColor),
-            )
-          : UnderlineInputBorder(
-              borderSide: BorderSide(color: Theme.of(context).primaryColor),
-            ),
-      contentPadding:
-          const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+      border:
+          widget.decorationType == InputDecorationType.outlined
+              ? OutlineInputBorder(borderRadius: BorderRadius.circular(8))
+              : const UnderlineInputBorder(),
+      enabledBorder:
+          widget.decorationType == InputDecorationType.outlined
+              ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.grey.shade400),
+              )
+              : UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+              ),
+      focusedBorder:
+          widget.decorationType == InputDecorationType.outlined
+              ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Theme.of(context).primaryColor),
+              )
+              : UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor),
+              ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
     );
   }
 }

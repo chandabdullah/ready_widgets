@@ -1,4 +1,8 @@
+import 'package:example/appbar/custom_appbar.dart';
+import 'package:example/bottombar/ready_bottombar.dart';
+import 'package:example/network_image/ready_network_image.dart';
 import 'package:example/ready_inputs.dart';
+import 'package:example/shimmer/ready_shimmer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,55 +17,103 @@ class MyExampleApp extends StatelessWidget {
     final TextEditingController controller = TextEditingController();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        textTheme: const TextTheme(titleMedium: TextStyle(fontSize: 20)),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.purple,
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ),
+      // home: ReadyInputs(controller: controller),
       home: Scaffold(
-        appBar: AppBar(title: const Text('Ready Widgets Example')),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
+        body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Inputs", style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 20),
-              ReadyInput(
-                title: 'Name',
-                hint: 'Enter your name',
-                controller: controller,
+              ReadyShimmer(
+                width: 200,
+                height: 200,
               ),
-              const SizedBox(height: 20),
-              ReadyInput(
-                title: 'Disabled Input',
-                hint: 'This input is disabled',
-                enabled: false,
-              ),
-              const SizedBox(height: 20),
-              ReadyInput(
-                title: 'Read-Only Input',
-                hint: 'This input is read-only',
-                readOnly: true,
-              ),
-              const SizedBox(height: 20),
-              ReadyInput(
-                title: 'Suffix Icon Input',
-                hint: 'This input has a suffix icon',
-                suffixIcon: Icon(Icons.info_outline),
-              ),
-              const SizedBox(height: 20),
-              ReadyInput(
-                title: 'Prefix Icon Input',
-                hint: 'This input has a prefix icon',
-                prefixIcon: Icon(Icons.info_outline),
-              ),
-              const SizedBox(height: 20),
-              ReadyInput(
-                title: 'Obscure Input',
-                hint: 'Enter password',
-                prefixIcon: Icon(Icons.lock),
-                suffixIcon: Icon(Icons.visibility_off),
-                isObscure: true,
+              SizedBox(height: 12),
+              ReadyNetworkImage(
+                imagePath:
+                    "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+                width: 200,
+                height: 200,
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ReadyInputs extends StatelessWidget {
+  const ReadyInputs({super.key, required this.controller});
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ReadyAppBar(titleText: "Ready Inputs"),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ReadyInput(
+              title: 'Underline Input',
+              hint: 'Enter your name',
+              controller: controller,
+              decorationType: InputDecorationType.underlined,
+            ),
+            const SizedBox(height: 20),
+            ReadyInput(
+              title: 'Outlined Input',
+              hint: 'Enter your name',
+              controller: controller,
+              decorationType: InputDecorationType.outlined,
+            ),
+            const SizedBox(height: 20),
+            ReadyInput(
+              title: 'Disabled Input',
+              hint: 'This input is disabled',
+              enabled: false,
+            ),
+            const SizedBox(height: 20),
+            ReadyInput(
+              title: 'Read-Only Input',
+              hint: 'This input is read-only',
+              readOnly: true,
+            ),
+            const SizedBox(height: 20),
+            ReadyInput(
+              title: 'Suffix Icon Input',
+              hint: 'This input has a suffix icon',
+              suffixIcon: Icon(Icons.info_outline),
+            ),
+            const SizedBox(height: 20),
+            ReadyInput(
+              title: 'Prefix Icon Input',
+              hint: 'This input has a prefix icon',
+              prefixIcon: Icon(Icons.info_outline),
+            ),
+            const SizedBox(height: 20),
+            ReadyInput(
+              title: 'Obscure Input',
+              hint: 'Enter password',
+              prefixIcon: Icon(Icons.lock),
+              suffixIcon: Icon(Icons.visibility_off),
+              isObscure: true,
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: ReadyBottomBar(
+        child: ElevatedButton(onPressed: () {}, child: Text("Submit")),
       ),
     );
   }
