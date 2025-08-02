@@ -19,7 +19,8 @@ class ReadyInput extends StatefulWidget {
   const ReadyInput({
     super.key,
     this.prefixIcon,
-    this.title,
+    this.label,
+    this.showLabelInside = true, // NEW FLAG
     this.hint,
     this.isObscure = false,
     this.autovalidateMode,
@@ -53,9 +54,9 @@ class ReadyInput extends StatefulWidget {
     this.scrollPadding = const EdgeInsets.all(20.0),
   });
 
-  // Input field configuration options
-  final Icon? prefixIcon;
-  final String? title;
+  final Widget? prefixIcon;
+  final String? label;
+  final bool showLabelInside;
   final String? hint;
   final bool isObscure;
   final TextInputType textInputType;
@@ -99,13 +100,11 @@ class ReadyInput extends StatefulWidget {
 }
 
 class _ReadyInputState extends State<ReadyInput> {
-  // Controls visibility of password in obscure mode
   bool showPassword = false;
 
   @override
   void initState() {
     super.initState();
-    // Show password only if not obscure
     showPassword = !widget.isObscure;
   }
 
@@ -116,11 +115,10 @@ class _ReadyInputState extends State<ReadyInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Display the title label above the input if provided
-        if (widget.title != null)
+        if (!widget.showLabelInside && widget.label != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 6.0),
-            child: Text(widget.title!, style: theme.textTheme.bodyMedium),
+            child: Text(widget.label!, style: theme.textTheme.bodyMedium),
           ),
         TextFormField(
           autovalidateMode: widget.autovalidateMode,
@@ -161,9 +159,9 @@ class _ReadyInputState extends State<ReadyInput> {
     );
   }
 
-  /// Builds the decoration for the input field based on the [decorationType]
   InputDecoration _buildInputDecoration(BuildContext context) {
     return InputDecoration(
+      labelText: widget.showLabelInside ? widget.label : null,
       hintText: widget.hint,
       prefixIcon: widget.prefixIcon,
       suffixIcon:

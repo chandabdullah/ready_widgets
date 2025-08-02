@@ -1,6 +1,7 @@
 import 'package:example/appbar/custom_appbar.dart';
 import 'package:example/bottombar/ready_bottombar.dart';
 import 'package:example/buttons/ready_buttons.dart';
+import 'package:example/empty/ready_empty_widget.dart';
 import 'package:example/image/ready_avatar.dart';
 import 'package:example/image/ready_network_image.dart';
 import 'package:example/inputs/ready_inputs.dart';
@@ -40,6 +41,24 @@ class MyExampleApp extends StatelessWidget {
         ),
       ),
       home: ReadyInputs(controller: controller),
+      // home: Scaffold(
+      //   body: ReadyEmptyWidget(
+      //     customIcon: Icon(
+      //       Icons.wifi_off,
+      //       size: 48,
+      //       color: Colors.black54,
+      //     ),
+      //     backgroundColor: Colors.white12,
+      //     additionalWidget: ReadyTextButton.solid(
+      //       text: "Try Again",
+      //       onPress: () {},
+      //       size: ReadyButtonSize.small,
+      //     ),
+      //     icon: Icons.wifi_off,
+      //     title: "Connection lost",
+      //     subtitle: "Please try again later for better usage",
+      //   ),
+      // ),
 
       // home: Scaffold(
       //   body: SafeArea(
@@ -92,49 +111,26 @@ class ReadyInputs extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ReadyInput(
-              title: 'Underline Input',
               hint: 'Enter your name',
               controller: controller,
+              label: "Name",
               decorationType: InputDecorationType.underlined,
             ),
             const SizedBox(height: 20),
             ReadyInput(
-              title: 'Outlined Input',
               hint: 'Enter your name',
+              label: "Name",
               controller: controller,
               decorationType: InputDecorationType.outlined,
             ),
             const SizedBox(height: 20),
-            ReadyInput(
-              title: 'Disabled Input',
-              hint: 'This input is disabled',
-              enabled: false,
-            ),
-            const SizedBox(height: 20),
-            ReadyInput(
-              title: 'Read-Only Input',
-              hint: 'This input is read-only',
-              readOnly: true,
-            ),
-            const SizedBox(height: 20),
-            ReadyInput(
-              title: 'Suffix Icon Input',
-              hint: 'This input has a suffix icon',
-              suffixIcon: Icon(Icons.info_outline),
-            ),
-            const SizedBox(height: 20),
-            ReadyInput(
-              title: 'Prefix Icon Input',
-              hint: 'This input has a prefix icon',
-              prefixIcon: Icon(Icons.info_outline),
-            ),
-            const SizedBox(height: 20),
-            ReadyInput(
-              title: 'Obscure Input',
-              hint: 'Enter password',
-              prefixIcon: Icon(Icons.lock),
-              suffixIcon: Icon(Icons.visibility_off),
-              isObscure: true,
+            ReadyPhoneInput(
+              initialDialCode: "+92",
+              labelText: "Phone Number",
+              hintText: "Enter your phone number",
+              onCountryChange: (value) {
+                print(value.dialCode);
+              },
             ),
           ],
         ),
@@ -142,9 +138,7 @@ class ReadyInputs extends StatelessWidget {
       bottomNavigationBar: ReadyBottomBar(
         child: Row(
           children: [
-            ReadyLikeButton.outlined(
-              isLiked: true,
-            ),
+            ReadyLikeButton.outlined(isLiked: true),
             const SizedBox(width: 8),
             Expanded(
               child: ReadyTextButton.solid(
