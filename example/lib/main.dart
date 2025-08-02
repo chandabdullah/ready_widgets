@@ -142,10 +142,8 @@ class ReadyInputs extends StatelessWidget {
       bottomNavigationBar: ReadyBottomBar(
         child: Row(
           children: [
-            ReadyIconButton.solid(
-              borderRadius: 10,
-              iconData: Icons.add,
-              isRounded: false,
+            ReadyLikeButton.outlined(
+              isLiked: true,
             ),
             const SizedBox(width: 8),
             Expanded(
