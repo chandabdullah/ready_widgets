@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// A customizable network image widget with built-in shimmer loading and fallback support.
 class ReadyNetworkImage extends StatefulWidget {
   /// The URL or path of the image to load.
-  final String imagePath;
+  final String imageUrl;
 
   /// The fixed height of the image. Defaults to width if not provided.
   final double? height;
@@ -13,7 +13,7 @@ class ReadyNetworkImage extends StatefulWidget {
   final double width;
 
   /// Defines how the image should be inscribed into the space allocated.
-  final BoxFit? boxFit;
+  final BoxFit? fit;
 
   /// The border radius if [isRounded] is false.
   final BorderRadius? borderRadius;
@@ -44,10 +44,10 @@ class ReadyNetworkImage extends StatefulWidget {
 
   const ReadyNetworkImage({
     super.key,
-    required this.imagePath,
+    required this.imageUrl,
     this.height,
     required this.width,
-    this.boxFit,
+    this.fit,
     this.borderRadius,
     this.borderColor,
     this.borderWidth,
@@ -67,8 +67,8 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
   /// Tracks if the image is fully loaded to toggle shimmer.
   bool _isLoaded = false;
 
-  /// Determines whether the imagePath is a remote URL.
-  bool get _isRemote => widget.imagePath.startsWith('http');
+  /// Determines whether the imageUrl is a remote URL.
+  bool get _isRemote => widget.imageUrl.startsWith('http');
 
   /// Final resolved height based on input height or width fallback.
   late final double resolvedHeight;
@@ -114,9 +114,9 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
           // Actual image loader
           Image.network(
             _isRemote
-                ? widget.imagePath
+                ? widget.imageUrl
                 : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png',
-            fit: widget.boxFit ?? BoxFit.cover,
+            fit: widget.fit ?? BoxFit.cover,
             frameBuilder: (context, child, frame, wasSyncLoaded) {
               final isNowLoaded = frame != null;
 
