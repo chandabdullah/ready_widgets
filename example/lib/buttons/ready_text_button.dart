@@ -1,8 +1,8 @@
 import 'ready_icon_position.dart';
+import 'ready_button_size.dart';
 import 'package:flutter/material.dart';
 
 /// Enum to define button size
-enum ReadyButtonSize { small, medium, large }
 
 /// A flexible, customizable text button for various use cases.
 class ReadyTextButton extends StatelessWidget {
@@ -135,8 +135,8 @@ class ReadyTextButton extends StatelessWidget {
         child: TextButton(
           onPressed: onPress,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(resolvedBackground),
-            shape: MaterialStateProperty.all(
+            backgroundColor: WidgetStateProperty.all(resolvedBackground),
+            shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
                 side: BorderSide(
@@ -145,10 +145,10 @@ class ReadyTextButton extends StatelessWidget {
                 ),
               ),
             ),
-            overlayColor: MaterialStateProperty.all(
-              resolvedTextColor.withOpacity(0.08),
+            overlayColor: WidgetStateProperty.all(
+              resolvedTextColor.withAlpha((0.08 * 255).toInt()),
             ),
-            padding: MaterialStateProperty.all(
+            padding: WidgetStateProperty.all(
               const EdgeInsets.symmetric(horizontal: 12),
             ),
           ),

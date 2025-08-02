@@ -140,9 +140,22 @@ class ReadyInputs extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: ReadyBottomBar(
-        child: ReadyTextButton(
-          text: "Submit",
-          onPress: () {},
+        child: Row(
+          children: [
+            ReadyIconButton.solid(
+              borderRadius: 10,
+              iconData: Icons.add,
+              isRounded: false,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: ReadyTextButton.solid(
+                text: "Submit",
+                width: double.infinity,
+                onPress: () {},
+              ),
+            ),
+          ],
         ),
       ),
     );
