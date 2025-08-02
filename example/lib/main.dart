@@ -1,6 +1,6 @@
 import 'package:example/appbar/custom_appbar.dart';
 import 'package:example/bottombar/ready_bottombar.dart';
-import 'package:example/buttons/ready_elevated_button.dart';
+import 'package:example/buttons/ready_buttons.dart';
 import 'package:example/image/ready_avatar.dart';
 import 'package:example/image/ready_network_image.dart';
 import 'package:example/inputs/ready_inputs.dart';
@@ -27,6 +27,16 @@ class MyExampleApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.purple,
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        buttonTheme: ButtonThemeData(buttonColor: Colors.purple),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.purple,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
         ),
       ),
       home: ReadyInputs(controller: controller),
@@ -130,7 +140,10 @@ class ReadyInputs extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: ReadyBottomBar(
-        child: ReadyElevatedButton(text: "Submit", onPress: () {}),
+        child: ReadyTextButton(
+          text: "Submit",
+          onPress: () {},
+        ),
       ),
     );
   }

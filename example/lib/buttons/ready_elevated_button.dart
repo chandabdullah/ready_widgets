@@ -1,9 +1,9 @@
+import 'ready_icon_position.dart';
 import 'package:flutter/material.dart';
 
 /// Position of the icon in the [ReadyElevatedButton]
-enum IconPosition { leading, trailing }
 
-/// A customizable elevated button with optional icon, image, and styles
+/// A customizable elevated button with optional icon and styles
 class ReadyElevatedButton extends StatelessWidget {
   /// The text displayed on the button
   final String text;
@@ -11,23 +11,23 @@ class ReadyElevatedButton extends StatelessWidget {
   /// Callback when the button is pressed
   final VoidCallback? onPress;
 
-  /// Text color
+  /// Text color (required if button is enabled)
   final Color? textColor;
 
-  /// Background color of the button
+  /// Background color of the button (required if button is enabled)
   final Color? backgroundColor;
 
-  /// Border color
+  /// Border color (optional)
   final Color? borderColor;
 
   /// Optional icon to display
   final IconData? icon;
 
   /// Font size of the text
-  final double? fontSize;
+  final double fontSize;
 
   /// Font weight of the text
-  final FontWeight? fontWeight;
+  final FontWeight fontWeight;
 
   /// Width of the button
   final double? width;
@@ -35,18 +35,13 @@ class ReadyElevatedButton extends StatelessWidget {
   /// Whether the button is disabled
   final bool isDisabled;
 
-  /// Corner radius of the button
-  final double radius;
-
-  /// Whether to show smaller size text and padding
-  final bool isSmallText;
+  /// Corner border radius of the button
+  final double borderRadius;
 
   /// Icon position relative to text
   final IconPosition iconPosition;
 
-  /// Path to PNG image (optional alternative to icon)
-  final String? pngImage;
-
+  /// Default constructor (same as large)
   const ReadyElevatedButton({
     super.key,
     required this.text,
@@ -55,24 +50,54 @@ class ReadyElevatedButton extends StatelessWidget {
     this.backgroundColor,
     this.borderColor,
     this.icon,
-    this.fontSize,
-    this.fontWeight,
+    this.fontSize = 16,
+    this.fontWeight = FontWeight.w500,
     this.width,
     this.isDisabled = false,
-    this.radius = 12,
-    this.isSmallText = false,
+    this.borderRadius = 12,
     this.iconPosition = IconPosition.leading,
-    this.pngImage,
+  });
+
+  /// Small-sized button
+  const ReadyElevatedButton.small({
+    super.key,
+    required this.text,
+    this.onPress,
+    this.textColor,
+    this.backgroundColor,
+    this.borderColor,
+    this.icon,
+    this.fontSize = 14,
+    this.fontWeight = FontWeight.w500,
+    this.width,
+    this.isDisabled = false,
+    this.borderRadius = 12,
+    this.iconPosition = IconPosition.leading,
+  });
+
+  /// Large-sized button
+  const ReadyElevatedButton.large({
+    super.key,
+    required this.text,
+    this.onPress,
+    this.textColor,
+    this.backgroundColor,
+    this.borderColor,
+    this.icon,
+    this.fontSize = 20,
+    this.fontWeight = FontWeight.w500,
+    this.width,
+    this.isDisabled = false,
+    this.borderRadius = 12,
+    this.iconPosition = IconPosition.leading,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final effectiveBgColor = isDisabled
-        ? theme.disabledColor
-        : backgroundColor ?? theme.primaryColor;
-    final effectiveTextColor = textColor ?? Colors.white;
-    final padding = EdgeInsets.symmetric(vertical: isSmallText ? 10 : 14);
+    final effectiveBgColor = backgroundColor;
+    final effectiveTextColor = textColor;
+    final effectiveBorderColor = borderColor ?? Colors.transparent;
+    final padding = EdgeInsets.symmetric(vertical: fontSize <= 14 ? 10 : 14);
 
     return SizedBox(
       width: width,
@@ -84,46 +109,62 @@ class ReadyElevatedButton extends StatelessWidget {
           padding: padding,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-            side: borderColor != null
-                ? BorderSide(color: borderColor!)
-                : BorderSide.none,
+            borderRadius: BorderRadius.circular(borderRadius),
+            side: BorderSide(color: effectiveBorderColor),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (iconPosition == IconPosition.leading) _buildIcon(),
-            if (_hasIcon()) SizedBox(width: isSmallText ? 4 : 8),
-            Expanded(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: fontSize ?? (isSmallText ? 14 : 16),
-                  fontWeight: fontWeight ?? FontWeight.w500,
-                  color: effectiveTextColor,
-                ),
-              ),
-            ),
-            if (iconPosition == IconPosition.trailing) _buildIcon(),
-          ],
-        ),
+        child: _buildContent(effectiveTextColor),
       ),
     );
   }
 
-  Widget _buildIcon() {
+  Widget _buildContent(Color? textColor) {
+    final iconWidget = _buildIcon(textColor);
+    final textWidget = Flexible(
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          color: textColor,
+        ),
+      ),
+    );
+
+    List<Widget> children = [];
+
+    if (iconPosition == IconPosition.leading && _hasIcon()) {
+      children = [
+        iconWidget,
+        SizedBox(width: fontSize <= 14 ? 4 : 8),
+        textWidget,
+      ];
+    } else if (iconPosition == IconPosition.trailing && _hasIcon()) {
+      children = [
+        textWidget,
+        SizedBox(width: fontSize <= 14 ? 4 : 8),
+        iconWidget,
+      ];
+    } else {
+      children = [textWidget];
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: children,
+    );
+  }
+
+  Widget _buildIcon(Color? color) {
     if (icon != null) {
-      return Icon(icon, size: 20, color: textColor ?? Colors.white);
-    } else if (pngImage?.isNotEmpty ?? false) {
-      return Image.asset(pngImage!, height: 18);
+      return Icon(icon, size: 20, color: color);
     } else {
       return const SizedBox();
     }
   }
 
-  bool _hasIcon() {
-    return icon != null || (pngImage?.isNotEmpty ?? false);
-  }
+  bool _hasIcon() => icon != null;
 }
