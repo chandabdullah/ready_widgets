@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// Enum to define the type of decoration for the input field.
 enum InputDecorationType { outlined, underlined }
 
+/// Custom class to handle cursor styling.
 class CursorStyleData {
   final Color? color;
   final double? height;
@@ -12,6 +14,7 @@ class CursorStyleData {
   const CursorStyleData({this.color, this.height, this.width, this.radius});
 }
 
+/// A custom input widget with flexible configuration options.
 class ReadyInput extends StatefulWidget {
   const ReadyInput({
     super.key,
@@ -50,6 +53,7 @@ class ReadyInput extends StatefulWidget {
     this.scrollPadding = const EdgeInsets.all(20.0),
   });
 
+  // Input field configuration options
   final Icon? prefixIcon;
   final String? title;
   final String? hint;
@@ -95,11 +99,13 @@ class ReadyInput extends StatefulWidget {
 }
 
 class _ReadyInputState extends State<ReadyInput> {
+  // Controls visibility of password in obscure mode
   bool showPassword = false;
 
   @override
   void initState() {
     super.initState();
+    // Show password only if not obscure
     showPassword = !widget.isObscure;
   }
 
@@ -110,13 +116,13 @@ class _ReadyInputState extends State<ReadyInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Display the title label above the input if provided
         if (widget.title != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 6.0),
             child: Text(widget.title!, style: theme.textTheme.bodyMedium),
           ),
         TextFormField(
-          
           autovalidateMode: widget.autovalidateMode,
           controller: widget.controller,
           obscureText: widget.isObscure && !showPassword,
@@ -155,6 +161,7 @@ class _ReadyInputState extends State<ReadyInput> {
     );
   }
 
+  /// Builds the decoration for the input field based on the [decorationType]
   InputDecoration _buildInputDecoration(BuildContext context) {
     return InputDecoration(
       hintText: widget.hint,

@@ -1,7 +1,47 @@
 import 'package:example/shimmer/ready_shimmer.dart';
 import 'package:flutter/material.dart';
 
+/// A customizable network image widget with built-in shimmer loading and fallback support.
 class ReadyNetworkImage extends StatefulWidget {
+  /// The URL or path of the image to load.
+  final String imagePath;
+
+  /// The fixed height of the image. Defaults to width if not provided.
+  final double? height;
+
+  /// The width of the image (required).
+  final double width;
+
+  /// Defines how the image should be inscribed into the space allocated.
+  final BoxFit? boxFit;
+
+  /// The border radius if [isRounded] is false.
+  final BorderRadius? borderRadius;
+
+  /// Color of the image border.
+  final Color? borderColor;
+
+  /// Width of the image border.
+  final double? borderWidth;
+
+  /// Background color behind the image.
+  final Color? backgroundColor;
+
+  /// If true, the image will be rendered as a circle.
+  final bool isRounded;
+
+  /// If true, applies a dark overlay to the image.
+  final bool isDark;
+
+  /// Clip behavior of the image container.
+  final Clip clipBehavior;
+
+  /// A custom placeholder widget shown while the image is loading.
+  final Widget? placeholder;
+
+  /// A widget to display when image fails to load.
+  final Widget? errorWidget;
+
   const ReadyNetworkImage({
     super.key,
     required this.imagePath,
@@ -19,28 +59,18 @@ class ReadyNetworkImage extends StatefulWidget {
     this.errorWidget,
   });
 
-  final String imagePath;
-  final double? height;
-  final double width;
-  final BoxFit? boxFit;
-  final BorderRadius? borderRadius;
-  final Color? borderColor;
-  final double? borderWidth;
-  final Color? backgroundColor;
-  final bool isRounded;
-  final bool isDark;
-  final Clip clipBehavior;
-
-  final Widget? placeholder;
-  final Widget? errorWidget;
-
   @override
   State<ReadyNetworkImage> createState() => _ReadyNetworkImageState();
 }
 
 class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
+  /// Tracks if the image is fully loaded to toggle shimmer.
   bool _isLoaded = false;
+
+  /// Determines whether the imagePath is a remote URL.
   bool get _isRemote => widget.imagePath.startsWith('http');
+
+  /// Final resolved height based on input height or width fallback.
   late final double resolvedHeight;
 
   @override
@@ -51,6 +81,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
 
   @override
   Widget build(BuildContext context) {
+    // Determines if image should be circular or rectangular.
     final shape = widget.isRounded ? BoxShape.circle : BoxShape.rectangle;
 
     return Container(
@@ -72,6 +103,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
       child: Stack(
         fit: StackFit.expand,
         children: [
+          // Show shimmer or custom placeholder if image not loaded yet
           if (!_isLoaded)
             widget.placeholder ??
                 ReadyShimmer(
@@ -79,6 +111,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
                   height: resolvedHeight,
                   borderRadius: widget.isRounded ? null : widget.borderRadius,
                 ),
+          // Actual image loader
           Image.network(
             _isRemote
                 ? widget.imagePath
@@ -90,7 +123,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
               return Stack(
                 fit: StackFit.expand,
                 children: [
-                  // Show shimmer until image is loaded
+                  // Still show shimmer if not loaded
                   if (!_isLoaded)
                     widget.placeholder ??
                         ReadyShimmer(
@@ -100,7 +133,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
                               widget.isRounded ? null : widget.borderRadius,
                         ),
 
-                  // Show image with fade-in
+                  // Fade-in animation once image is ready
                   AnimatedOpacity(
                     opacity: isNowLoaded ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
@@ -116,7 +149,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
                 ],
               );
             },
-
+            // Fallback UI when image loading fails
             errorBuilder:
                 (context, error, stackTrace) =>
                     widget.errorWidget ??
@@ -127,6 +160,7 @@ class _ReadyNetworkImageState extends State<ReadyNetworkImage> {
     );
   }
 
+  /// Applies dark filter overlay if [isDark] is true.
   Widget _buildFiltered(Widget child) {
     if (!widget.isDark) return child;
     return ColorFiltered(

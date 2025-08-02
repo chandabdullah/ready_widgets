@@ -3,6 +3,7 @@ import 'package:example/bottombar/ready_bottombar.dart';
 import 'package:example/network_image/ready_network_image.dart';
 import 'package:example/ready_inputs.dart';
 import 'package:example/shimmer/ready_shimmer.dart';
+import 'package:example/text/ready_read_more_text.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,20 +30,27 @@ class MyExampleApp extends StatelessWidget {
       // home: ReadyInputs(controller: controller),
       home: Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              ReadyShimmer(
-                width: 200,
-                height: 200,
-              ),
-              SizedBox(height: 12),
-              ReadyNetworkImage(
-                imagePath:
-                    "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
-                width: 200,
-                height: 200,
-              ),
-            ],
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                ReadyShimmer(width: 200, height: 200),
+                SizedBox(height: 12),
+                ReadyNetworkImage(
+                  imagePath:
+                      "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+                  width: 200,
+                  height: 200,
+                ),
+                ReadyReadMoreText(
+                  text:
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  trimMode: TrimMode.line,
+                  trimLines: 3,
+                  trimLength: 300,
+                ),
+              ],
+            ),
           ),
         ),
       ),
