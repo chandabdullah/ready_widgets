@@ -56,7 +56,6 @@ class _ReadyEmptyWidgetState extends State<ReadyEmptyWidget>
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final showSubtitle = widget.subtitle?.trim().isNotEmpty ?? false;
 
     return Container(
