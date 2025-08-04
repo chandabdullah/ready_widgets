@@ -52,6 +52,7 @@ class ReadyInput extends StatefulWidget {
     this.expands = false,
     this.onEditingComplete,
     this.scrollPadding = const EdgeInsets.all(20.0),
+    this.borderRadius,
   });
 
   final Widget? prefixIcon;
@@ -94,6 +95,7 @@ class ReadyInput extends StatefulWidget {
   final bool expands;
   final VoidCallback? onEditingComplete;
   final EdgeInsets scrollPadding;
+  final BorderRadius? borderRadius;
 
   @override
   State<ReadyInput> createState() => _ReadyInputState();
@@ -160,6 +162,8 @@ class _ReadyInputState extends State<ReadyInput> {
   }
 
   InputDecoration _buildInputDecoration(BuildContext context) {
+    final borderRadius = widget.borderRadius ?? BorderRadius.circular(8);
+
     return InputDecoration(
       labelText: widget.showLabelInside ? widget.label : null,
       hintText: widget.hint,
@@ -180,12 +184,12 @@ class _ReadyInputState extends State<ReadyInput> {
               : null),
       border:
           widget.decorationType == InputDecorationType.outlined
-              ? OutlineInputBorder(borderRadius: BorderRadius.circular(8))
+              ? OutlineInputBorder(borderRadius: borderRadius)
               : const UnderlineInputBorder(),
       enabledBorder:
           widget.decorationType == InputDecorationType.outlined
               ? OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: borderRadius,
                 borderSide: BorderSide(color: Colors.grey.shade400),
               )
               : UnderlineInputBorder(
@@ -194,7 +198,7 @@ class _ReadyInputState extends State<ReadyInput> {
       focusedBorder:
           widget.decorationType == InputDecorationType.outlined
               ? OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: borderRadius,
                 borderSide: BorderSide(color: Theme.of(context).primaryColor),
               )
               : UnderlineInputBorder(

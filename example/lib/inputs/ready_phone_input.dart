@@ -1,6 +1,7 @@
 import 'package:example/inputs/coutries.dart';
 import 'package:example/inputs/ready_inputs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ReadyPhoneInput extends StatefulWidget {
   const ReadyPhoneInput({
@@ -17,6 +18,27 @@ class ReadyPhoneInput extends StatefulWidget {
     this.onChanged,
     this.onFieldSubmitted,
     this.buildCounter,
+    this.autovalidateMode,
+    this.inputFormatters,
+    this.cursorStyle,
+    this.decorationType = InputDecorationType.outlined,
+    this.enableInteractiveSelection = true,
+    this.enableSuggestions = true,
+    this.enabled = true,
+    this.expands,
+    this.focusNode,
+    this.isObscure,
+    this.onEditingComplete,
+    this.onTap,
+    this.scrollPadding,
+    this.showLabelInside,
+    this.style,
+    this.suffixIcon,
+    this.textAlign,
+    this.textAlignVertical,
+    this.textCapitalization,
+    this.borderRadius,
+    this.countries,
   });
 
   final TextEditingController? controller;
@@ -40,6 +62,28 @@ class ReadyPhoneInput extends StatefulWidget {
   })?
   buildCounter;
 
+  final AutovalidateMode? autovalidateMode;
+  final List<TextInputFormatter>? inputFormatters;
+  final CursorStyleData? cursorStyle;
+  final InputDecorationType decorationType;
+  final bool enableInteractiveSelection;
+  final bool enableSuggestions;
+  final bool enabled;
+  final bool? expands;
+  final FocusNode? focusNode;
+  final bool? isObscure;
+  final VoidCallback? onEditingComplete;
+  final VoidCallback? onTap;
+  final EdgeInsets? scrollPadding;
+  final bool? showLabelInside;
+  final TextStyle? style;
+  final Widget? suffixIcon;
+  final TextAlign? textAlign;
+  final TextAlignVertical? textAlignVertical;
+  final TextCapitalization? textCapitalization;
+  final BorderRadius? borderRadius;
+  final List<Country>? countries;
+
   @override
   State<ReadyPhoneInput> createState() => _ReadyPhoneInputState();
 }
@@ -52,13 +96,14 @@ class _ReadyPhoneInputState extends State<ReadyPhoneInput> {
   late Locale _locale;
   late List<Country> _filteredCountries;
 
-  final List<Country> _countries = countriesList;
+  late final List<Country> _countries;
 
   @override
   void initState() {
     super.initState();
     _locale = WidgetsBinding.instance.platformDispatcher.locale;
     _controller = widget.controller ?? TextEditingController();
+    _countries = widget.countries ?? countriesList;
 
     _selectedCountry = _countries.firstWhere(
       (c) => c.dialCode == widget.initialDialCode?.replaceAll("+", ""),
@@ -149,6 +194,7 @@ class _ReadyPhoneInputState extends State<ReadyPhoneInput> {
   @override
   Widget build(BuildContext context) {
     return ReadyInput(
+      borderRadius: widget.borderRadius,
       controller: _controller,
       readOnly: widget.isReadOnly,
       textInputType: TextInputType.phone,
@@ -161,6 +207,25 @@ class _ReadyPhoneInputState extends State<ReadyPhoneInput> {
       buildCounter: widget.buildCounter,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,
+      autovalidateMode: widget.autovalidateMode,
+      inputFormatters: widget.inputFormatters,
+      cursorStyle: widget.cursorStyle,
+      decorationType: widget.decorationType,
+      enableInteractiveSelection: widget.enableInteractiveSelection,
+      enableSuggestions: widget.enableSuggestions,
+      enabled: widget.enabled,
+      expands: widget.expands ?? false,
+      focusNode: widget.focusNode,
+      isObscure: widget.isObscure ?? false,
+      onEditingComplete: widget.onEditingComplete,
+      onTap: widget.onTap,
+      scrollPadding: widget.scrollPadding ?? const EdgeInsets.all(20),
+      showLabelInside: widget.showLabelInside ?? false,
+      style: widget.style,
+      suffixIcon: widget.suffixIcon,
+      textAlign: widget.textAlign ?? TextAlign.start,
+      textAlignVertical: widget.textAlignVertical,
+      textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
       prefixIcon: GestureDetector(
         onTap: _onCountryTap,
         child: Container(
