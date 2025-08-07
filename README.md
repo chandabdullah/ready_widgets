@@ -65,8 +65,6 @@ ReadyTextButton.outlined(
 ),
 ```
 
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_buttons.png" alt="Ready Buttons" height="500"/>
-
 ### 2. ReadyLikeButton
 A toggleable like button with animation, supporting solid, outlined, or transparent styles.
 
@@ -89,7 +87,6 @@ ReadyLikeButton.solid(
   isLiked: true,
 ),
 ```
-
 ### 3. ReadyIconButton
 An icon-only button with support for badges, tooltips, and rounded or rectangular shapes.
 
@@ -132,6 +129,8 @@ ReadyElevatedButton.small(
   textColor: Colors.white,
 ),
 ```
+
+<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_buttons.png" alt="Ready Buttons" height="500"/>
 
 ### 5. ReadyEmptyWidget
 A widget for empty states with an animated icon, title, subtitle, and optional additional widget.
@@ -181,9 +180,6 @@ ReadyAvatar(
   textColor: Colors.white,
 ),
 ```
-
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_images.png" alt="Ready Images" height="500"/>
-
 ### 7. ReadyNetworkImage
 A network image widget with shimmer loading and error handling.
 
@@ -209,6 +205,8 @@ ReadyNetworkImage(
 ),
 ```
 
+<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_images.png" alt="Ready Images" height="500"/>
+
 ### 8. ReadyInput
 A customizable text input field with support for prefix/suffix icons, validation, and decoration styles.
 
@@ -230,10 +228,6 @@ ReadyInput(
   prefixIcon: Icon(Icons.lock),
 ),
 ```
-
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_inputs.png" alt="Ready Inputs" height="500"/>
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_inputs_1.png" alt="Ready Inputs 1" height="500"/>
-
 ### 9. ReadyPhoneInput
 A phone number input with a country code picker and localized country names.
 
@@ -255,6 +249,9 @@ ReadyPhoneInput(
       value!.length < 10 ? 'Phone number too short' : null,
 ),
 ```
+
+<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_inputs.png" alt="Ready Inputs" height="500"/>
+<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_inputs_1.png" alt="Ready Inputs 1" height="500"/>
 
 ### 10. ReadyShimmer
 A dependency-free shimmer effect for loading placeholders.
