@@ -43,58 +43,107 @@ class MyExampleApp extends StatelessWidget {
       ),
       // home: ReadyInputs(controller: controller),
       // home: ReadyButtons(),
-      home: ReadyShimmers(),
-      // home: Scaffold(
-      //   body: ReadyEmptyWidget(
-      //     customIcon: Icon(
-      //       Icons.wifi_off,
-      //       size: 48,
-      //       color: Colors.black54,
-      //     ),
-      //     backgroundColor: Colors.white12,
-      //     additionalWidget: ReadyTextButton.solid(
-      //       text: "Try Again",
-      //       onPress: () {},
-      //       size: ReadyButtonSize.small,
-      //     ),
-      //     icon: Icons.wifi_off,
-      //     title: "Connection lost",
-      //     subtitle: "Please try again later for better usage",
-      //   ),
-      // ),
+      // home: ReadyShimmers(),
+      // home: ReadyImages(),
+      home: ReadyTexts(),
+    );
+  }
+}
 
-      // home: Scaffold(
-      //   body: SafeArea(
-      //     child: SingleChildScrollView(
-      //       padding: const EdgeInsets.all(16.0),
-      //       child: Column(
-      //         children: [
-      //           ReadyAvatar(
-      //             name: "John Doe",
-      //             isOnline: true,
-      //             imageUrl:
-      //                 "https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-      //           ),
-      //           // ReadyShimmer(width: 200, height: 200),
-      //           // SizedBox(height: 12),
-      //           ReadyNetworkImage(
-      //             imageUrl:
-      //                 "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
-      //             width: 200,
-      //             height: 200,
-      //           ),
-      //           ReadyReadMoreText(
-      //             text:
-      //                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      //             trimMode: TrimMode.line,
-      //             trimLines: 3,
-      //             trimLength: 300,
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
+class ReadyTexts extends StatelessWidget {
+  const ReadyTexts({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ReadyAppBar(titleText: "Ready Texts"),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Ready Read More Text",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            ReadyReadMoreText(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              maxLines: 3,
+              moreLessStyle: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ReadyReadMoreText(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              maxLines: 5,
+
+              moreLessStyle: TextStyle(
+                color: Colors.purple,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ReadyReadMoreText(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              maxLines: 10,
+
+              moreLessStyle: TextStyle(
+                color: Colors.deepOrange,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReadyImages extends StatelessWidget {
+  const ReadyImages({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ReadyAppBar(titleText: "Ready Images"),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Ready Network Image",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            ReadyNetworkImage(
+              imageUrl:
+                  "https://lh3.googleusercontent.com/p/AF1QipOWqs4e5X_KsU9iXWEZtKF3CDHUWRJz51RUaW6y=s1360-w1360-h1020-rw",
+              width: double.infinity,
+              height: 200,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              "Ready Avatar",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            ReadyAvatar(
+              name: "John Doe",
+              isOnline: true,
+              size: 100,
+              imageUrl:
+                  "https://media.licdn.com/dms/image/v2/D4D03AQE3lVKqKl52jg/profile-displayphoto-shrink_800_800/B4DZXfSwguHwAg-/0/1743207993628?e=1757548800&v=beta&t=c5_doX7Q_gvy8-GWEHc6gONHS4DZo-YB-vi-h-eZ7F4",
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -121,9 +170,13 @@ class ReadyShimmers extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                Expanded(child: ReadyShimmer(width: double.infinity, height: 100)),
+                Expanded(
+                  child: ReadyShimmer(width: double.infinity, height: 100),
+                ),
                 const SizedBox(width: 16),
-                Expanded(child: ReadyShimmer(width: double.infinity, height: 100)),
+                Expanded(
+                  child: ReadyShimmer(width: double.infinity, height: 100),
+                ),
               ],
             ),
             const SizedBox(height: 16),

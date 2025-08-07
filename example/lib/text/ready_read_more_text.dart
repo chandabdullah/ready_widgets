@@ -15,7 +15,7 @@ class ReadyReadMoreText extends StatefulWidget {
   final TextStyle? moreLessStyle;
 
   /// Number of lines to trim to when [trimMode] is `TrimMode.line`.
-  final int trimLines;
+  final int maxLines;
 
   /// Number of characters to trim to when [trimMode] is `TrimMode.length`.
   final int trimLength;
@@ -34,7 +34,7 @@ class ReadyReadMoreText extends StatefulWidget {
     required this.text,
     this.textStyle,
     this.moreLessStyle,
-    this.trimLines = 2,
+    this.maxLines = 2,
     this.trimLength = 100,
     this.trimMode = TrimMode.line,
     this.readMoreText = ' Read more',
@@ -49,7 +49,7 @@ class _ReadyReadMoreTextState extends State<ReadyReadMoreText> {
   /// Tracks whether the full text is currently shown.
   bool _expanded = false;
 
-  /// Whether the text overflows the defined trimLines.
+  /// Whether the text overflows the defined maxLines.
   bool _isOverflowing = false;
 
   @override
@@ -67,13 +67,13 @@ class _ReadyReadMoreTextState extends State<ReadyReadMoreText> {
 
         final tp = TextPainter(
           text: span,
-          maxLines: widget.trimLines,
+          maxLines: widget.maxLines,
           textDirection: TextDirection.ltr,
         );
 
         tp.layout(maxWidth: constraints.maxWidth);
 
-        // Check if the text exceeds the trimLines
+        // Check if the text exceeds the maxLines
         _isOverflowing = tp.didExceedMaxLines;
 
         if (!_expanded && _isOverflowing) {
@@ -132,7 +132,7 @@ class _ReadyReadMoreTextState extends State<ReadyReadMoreText> {
 
     final tp = TextPainter(
       textDirection: TextDirection.ltr,
-      maxLines: widget.trimLines,
+      maxLines: widget.maxLines,
     );
 
     for (var word in words) {

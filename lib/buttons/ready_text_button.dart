@@ -1,5 +1,8 @@
 part of 'ready_buttons.dart';
 
+/// Internal enum to define style type.
+enum _ButtonStyleType { solid, outline, transparent }
+
 /// Enum to define button size
 
 /// A flexible, customizable text button for various use cases.
@@ -52,6 +55,9 @@ class ReadyTextButton extends StatelessWidget {
   /// Size of the button: small, medium, or large.
   final ReadyButtonSize size;
 
+  /// Whether the button should take full available width.
+  final bool expanded;
+
   /// Determines the style of button: solid, outline, or transparent.
   final _ButtonStyleType _styleType;
 
@@ -73,6 +79,7 @@ class ReadyTextButton extends StatelessWidget {
     this.iconPosition = IconPosition.trailing,
     this.alignment = Alignment.center,
     this.size = ReadyButtonSize.medium,
+    this.expanded = false,
   }) : _styleType = _ButtonStyleType.transparent;
 
   /// Creates a solid button with filled background
@@ -94,10 +101,11 @@ class ReadyTextButton extends StatelessWidget {
     this.iconPosition = IconPosition.trailing,
     this.alignment = Alignment.center,
     this.size = ReadyButtonSize.medium,
+    this.expanded = false,
   }) : _styleType = _ButtonStyleType.solid;
 
   /// Creates an outlined button with transparent background and visible border
-  const ReadyTextButton.outline({
+  const ReadyTextButton.outlined({
     super.key,
     required this.text,
     this.onPress,
@@ -115,6 +123,7 @@ class ReadyTextButton extends StatelessWidget {
     this.iconPosition = IconPosition.trailing,
     this.alignment = Alignment.center,
     this.size = ReadyButtonSize.medium,
+    this.expanded = false,
   }) : _styleType = _ButtonStyleType.outline;
 
   @override
@@ -128,7 +137,7 @@ class ReadyTextButton extends StatelessWidget {
     return Align(
       alignment: alignment,
       child: SizedBox(
-        width: width,
+        width: expanded ? double.infinity : width,
         height: height ?? _resolveHeight(),
         child: TextButton(
           onPressed: onPress,
@@ -245,6 +254,3 @@ class ReadyTextButton extends StatelessWidget {
     return borderColor ?? Colors.transparent;
   }
 }
-
-/// Internal enum to define style type.
-enum _ButtonStyleType { solid, outline, transparent }
