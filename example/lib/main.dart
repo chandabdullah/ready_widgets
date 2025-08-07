@@ -24,16 +24,16 @@ class MyExampleApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.deepPurple,
         textTheme: const TextTheme(titleMedium: TextStyle(fontSize: 20)),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.deepPurple,
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         ),
-        buttonTheme: ButtonThemeData(buttonColor: Colors.purple),
+        buttonTheme: ButtonThemeData(buttonColor: Colors.deepPurple),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.deepPurple,
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -41,7 +41,9 @@ class MyExampleApp extends StatelessWidget {
           ),
         ),
       ),
-      home: ReadyInputs(controller: controller),
+      // home: ReadyInputs(controller: controller),
+      // home: ReadyButtons(),
+      home: ReadyShimmers(),
       // home: Scaffold(
       //   body: ReadyEmptyWidget(
       //     customIcon: Icon(
@@ -97,6 +99,100 @@ class MyExampleApp extends StatelessWidget {
   }
 }
 
+class ReadyShimmers extends StatelessWidget {
+  const ReadyShimmers({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ReadyAppBar(titleText: "Ready Shimmers"),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ReadyShimmer(width: double.infinity, height: 200),
+            const SizedBox(height: 16),
+            ReadyShimmer(width: 200, height: 20),
+            const SizedBox(height: 16),
+            ReadyShimmer(width: 300, height: 20),
+            const SizedBox(height: 16),
+            ReadyShimmer(width: 150, height: 20),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(child: ReadyShimmer(width: double.infinity, height: 100)),
+                const SizedBox(width: 16),
+                Expanded(child: ReadyShimmer(width: double.infinity, height: 100)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            ReadyShimmer(width: 250, height: 20),
+            const SizedBox(height: 16),
+            ReadyShimmer(width: 300, height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReadyButtons extends StatelessWidget {
+  const ReadyButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ReadyAppBar(titleText: "Ready Buttons"),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ReadyTextButton(text: "Text Button", onPress: () {}),
+            const SizedBox(height: 16),
+            ReadyTextButton.solid(text: "Solid Text Button", onPress: () {}),
+            const SizedBox(height: 16),
+            ReadyTextButton.solid(
+              text: "Full width Solid Text Button",
+              onPress: () {},
+              expanded: true,
+            ),
+            const SizedBox(height: 16),
+            ReadyTextButton.outlined(
+              text: "Outlined Text Button",
+              onPress: () {},
+            ),
+            const SizedBox(height: 16),
+            ReadyTextButton.outlined(
+              text: "Full Width Outlined Text Button",
+              onPress: () {},
+              expanded: true,
+            ),
+            const SizedBox(height: 16),
+            ReadyElevatedButton(text: "Elevated Button", onPress: () {}),
+            const SizedBox(height: 16),
+            ReadyElevatedButton(text: "Solid Elevated Button", onPress: () {}),
+            const SizedBox(height: 16),
+            ReadyElevatedButton(
+              text: "Full width Solid Elevated Button",
+              onPress: () {},
+              expanded: true,
+            ),
+            const SizedBox(height: 16),
+            ReadyIconButton.solid(iconData: Icons.add, onPress: () {}),
+            const SizedBox(height: 16),
+            ReadyIconButton.outlined(iconData: Icons.add, onPress: () {}),
+            const SizedBox(height: 16),
+            ReadyLikeButton.solid(isLiked: true),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class ReadyInputs extends StatelessWidget {
   const ReadyInputs({super.key, required this.controller});
 
@@ -108,49 +204,89 @@ class ReadyInputs extends StatelessWidget {
       appBar: ReadyAppBar(titleText: "Ready Inputs"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ReadyInput(
-              hint: 'Enter your name',
-              controller: controller,
-              label: "Name",
-              decorationType: InputDecorationType.underlined,
-            ),
-            const SizedBox(height: 20),
-            ReadyInput(
-              hint: 'Enter your name',
-              label: "Name",
-              controller: controller,
-              decorationType: InputDecorationType.outlined,
-            ),
-            const SizedBox(height: 20),
-            ReadyPhoneInput(
-              initialDialCode: "+92",
-              labelText: "Phone Number",
-              hintText: "Enter your phone number",
-              onCountryChange: (value) {
-                print(value.dialCode);
-              },
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: ReadyBottomBar(
-        child: Row(
-          children: [
-            ReadyLikeButton.outlined(isLiked: true),
-            const SizedBox(width: 8),
-            Expanded(
-              child: ReadyTextButton.solid(
-                text: "Submit",
-                width: double.infinity,
-                onPress: () {},
+        child: Form(
+          autovalidateMode: AutovalidateMode.always,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ReadyInput(
+                hint: 'Enter your name',
+                controller: controller,
+                label: "Underlined Input",
+                decorationType: InputDecorationType.underlined,
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              ReadyInput(
+                hint: 'Enter your name',
+                label: "Outlined Input",
+                showLabelInside: false,
+                controller: controller,
+                decorationType: InputDecorationType.outlined,
+              ),
+              const SizedBox(height: 20),
+              ReadyInput(
+                hint: 'Enter your password',
+                label: "Suffix Icon Input",
+                controller: controller,
+                showLabelInside: false,
+                decorationType: InputDecorationType.outlined,
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.remove_red_eye, color: Colors.grey),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ReadyInput(
+                hint: 'Enter your email',
+                showLabelInside: false,
+                label: "Prefix Icon Input",
+                controller: controller,
+                decorationType: InputDecorationType.outlined,
+                prefixIcon: Icon(Icons.email, color: Colors.grey),
+              ),
+              const SizedBox(height: 20),
+              ReadyInput(
+                hint: 'Search...',
+                showLabelInside: false,
+                label: "Input with Custom Validator",
+                controller: controller,
+                decorationType: InputDecorationType.outlined,
+                validator: (p0) {
+                  return p0!.isEmpty ? "Try to search something" : null;
+                },
+                prefixIcon: Icon(Icons.search, color: Colors.grey),
+              ),
+              const SizedBox(height: 20),
+              ReadyPhoneInput(
+                initialDialCode: "+92",
+                showLabelInside: false,
+                labelText: "Phone Number",
+                hintText: "Enter your phone number",
+
+                onCountryChange: (value) {
+                  print(value.dialCode);
+                },
+              ),
+            ],
+          ),
         ),
       ),
+
+      // bottomNavigationBar: ReadyBottomBar(
+      //   child: Row(
+      //     children: [
+      //       ReadyLikeButton.outlined(isLiked: true),
+      //       const SizedBox(width: 8),
+      //       Expanded(
+      //         child: ReadyTextButton.solid(
+      //           text: "Submit",
+      //           width: double.infinity,
+      //           onPress: () {},
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

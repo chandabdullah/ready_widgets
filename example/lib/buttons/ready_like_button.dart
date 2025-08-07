@@ -8,7 +8,7 @@ class ReadyLikeButton extends StatefulWidget {
   /// Default transparent button with outline style
   factory ReadyLikeButton({
     Key? key,
-    Future<bool?> Function(bool isLiked)? onTap,
+    Future<bool?> Function(bool isLiked)? onPress,
     double iconSize = 26,
     Color? iconColor,
     IconData solidIcon = Icons.favorite,
@@ -22,7 +22,7 @@ class ReadyLikeButton extends StatefulWidget {
     return ReadyLikeButton._(
       key: key,
       style: _LikeButtonStyle.transparent,
-      onTap: onTap,
+      onPress: onPress,
       iconSize: iconSize,
       color: Colors.transparent,
       iconColor: iconColor,
@@ -38,7 +38,7 @@ class ReadyLikeButton extends StatefulWidget {
 
   const ReadyLikeButton.solid({
     Key? key,
-    this.onTap,
+    this.onPress,
     this.iconSize = 26,
     this.color,
     this.iconColor,
@@ -54,7 +54,7 @@ class ReadyLikeButton extends StatefulWidget {
 
   const ReadyLikeButton.outlined({
     Key? key,
-    this.onTap,
+    this.onPress,
     this.iconSize = 26,
     this.color,
     this.iconColor,
@@ -71,7 +71,7 @@ class ReadyLikeButton extends StatefulWidget {
   const ReadyLikeButton._({
     Key? key,
     required _LikeButtonStyle style,
-    this.onTap,
+    this.onPress,
     this.iconSize = 26,
     this.color,
     this.iconColor,
@@ -85,7 +85,7 @@ class ReadyLikeButton extends StatefulWidget {
   }) : _style = style,
        super(key: key);
 
-  final Future<bool?> Function(bool isLiked)? onTap;
+  final Future<bool?> Function(bool isLiked)? onPress;
   final double iconSize;
   final Color? color;
   final Color? iconColor;
@@ -164,8 +164,8 @@ class _ReadyLikeButtonState extends State<ReadyLikeButton>
     _controller.forward().then((_) => _controller.reverse());
 
     final newState = !_isLiked;
-    if (widget.onTap != null) {
-      final result = await widget.onTap!(newState);
+    if (widget.onPress != null) {
+      final result = await widget.onPress!(newState);
       if (result == null) return;
       setState(() => _isLiked = result);
     } else {

@@ -1,8 +1,6 @@
 import 'ready_icon_position.dart';
 import 'package:flutter/material.dart';
 
-/// Position of the icon in the [ReadyElevatedButton]
-
 /// A customizable elevated button with optional icon and styles
 class ReadyElevatedButton extends StatelessWidget {
   /// The text displayed on the button
@@ -29,7 +27,7 @@ class ReadyElevatedButton extends StatelessWidget {
   /// Font weight of the text
   final FontWeight fontWeight;
 
-  /// Width of the button
+  /// Width of the button (ignored if [expanded] is true)
   final double? width;
 
   /// Whether the button is disabled
@@ -40,6 +38,15 @@ class ReadyElevatedButton extends StatelessWidget {
 
   /// Icon position relative to text
   final IconPosition iconPosition;
+
+  /// Whether the button should take full available width
+  final bool expanded;
+
+  /// Alignment of the button within its parent
+  final Alignment alignment;
+
+  /// Custom padding (if not provided, defaults based on font size)
+  final EdgeInsets? padding;
 
   /// Default constructor (same as large)
   const ReadyElevatedButton({
@@ -56,6 +63,9 @@ class ReadyElevatedButton extends StatelessWidget {
     this.isDisabled = false,
     this.borderRadius = 12,
     this.iconPosition = IconPosition.leading,
+    this.expanded = false,
+    this.alignment = Alignment.center,
+    this.padding,
   });
 
   /// Small-sized button
@@ -73,6 +83,9 @@ class ReadyElevatedButton extends StatelessWidget {
     this.isDisabled = false,
     this.borderRadius = 12,
     this.iconPosition = IconPosition.leading,
+    this.expanded = false,
+    this.alignment = Alignment.center,
+    this.padding,
   });
 
   /// Large-sized button
@@ -90,6 +103,9 @@ class ReadyElevatedButton extends StatelessWidget {
     this.isDisabled = false,
     this.borderRadius = 12,
     this.iconPosition = IconPosition.leading,
+    this.expanded = false,
+    this.alignment = Alignment.center,
+    this.padding,
   });
 
   @override
@@ -97,23 +113,32 @@ class ReadyElevatedButton extends StatelessWidget {
     final effectiveBgColor = backgroundColor;
     final effectiveTextColor = textColor;
     final effectiveBorderColor = borderColor ?? Colors.transparent;
-    final padding = EdgeInsets.symmetric(vertical: fontSize <= 14 ? 10 : 14);
 
-    return SizedBox(
-      width: width,
-      child: ElevatedButton(
-        onPressed: isDisabled ? null : onPress,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: effectiveBgColor,
-          foregroundColor: effectiveTextColor,
-          padding: padding,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            side: BorderSide(color: effectiveBorderColor),
+    final effectivePadding =
+        padding ??
+        EdgeInsets.symmetric(
+          vertical: fontSize <= 14 ? 10 : 14,
+          horizontal: fontSize <= 14 ? 12 : 16,
+        );
+
+    return Align(
+      alignment: alignment,
+      child: SizedBox(
+        width: expanded ? double.infinity : width,
+        child: ElevatedButton(
+          onPressed: isDisabled ? null : onPress,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: effectiveBgColor,
+            foregroundColor: effectiveTextColor,
+            padding: effectivePadding,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+              side: BorderSide(color: effectiveBorderColor),
+            ),
           ),
+          child: _buildContent(effectiveTextColor),
         ),
-        child: _buildContent(effectiveTextColor),
       ),
     );
   }

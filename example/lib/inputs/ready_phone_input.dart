@@ -220,7 +220,7 @@ class _ReadyPhoneInputState extends State<ReadyPhoneInput> {
       onEditingComplete: widget.onEditingComplete,
       onTap: widget.onTap,
       scrollPadding: widget.scrollPadding ?? const EdgeInsets.all(20),
-      showLabelInside: widget.showLabelInside ?? false,
+      showLabelInside: widget.showLabelInside ?? true,
       style: widget.style,
       suffixIcon: widget.suffixIcon,
       textAlign: widget.textAlign ?? TextAlign.start,

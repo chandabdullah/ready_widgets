@@ -6,7 +6,7 @@ enum _ButtonStyleType { solid, outline, transparent }
 class ReadyIconButton extends StatelessWidget {
   final IconData? iconData;
   final Widget? iconWidget;
-  final VoidCallback? onTap;
+  final VoidCallback? onPress;
   final Color? backgroundColor;
   final Color? borderColor;
   final String? tooltip;
@@ -26,7 +26,7 @@ class ReadyIconButton extends StatelessWidget {
     this.iconData,
     this.iconWidget,
     this.iconColor,
-    this.onTap,
+    this.onPress,
     this.backgroundColor,
     this.isRounded = false,
     this.color,
@@ -45,7 +45,7 @@ class ReadyIconButton extends StatelessWidget {
     this.iconData,
     this.iconWidget,
     this.iconColor,
-    this.onTap,
+    this.onPress,
     this.backgroundColor,
     this.isRounded = false,
     this.color,
@@ -59,12 +59,12 @@ class ReadyIconButton extends StatelessWidget {
     this.size = ReadyButtonSize.medium,
   }) : _styleType = _ButtonStyleType.solid;
 
-  const ReadyIconButton.outline({
+  const ReadyIconButton.outlined({
     super.key,
     this.iconData,
     this.iconWidget,
     this.iconColor,
-    this.onTap,
+    this.onPress,
     this.backgroundColor,
     this.isRounded = true,
     this.color,
@@ -118,7 +118,7 @@ class ReadyIconButton extends StatelessWidget {
         color: Colors.transparent,
         shape: isRounded ? const CircleBorder() : null,
         child: InkWell(
-          onTap: onTap,
+          onTap: onPress,
           customBorder: isRounded ? const CircleBorder() : null,
           borderRadius:
               isRounded ? null : BorderRadius.circular(borderRadius ?? 12),
