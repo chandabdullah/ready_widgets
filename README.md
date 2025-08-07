@@ -90,8 +90,6 @@ ReadyLikeButton.solid(
 ),
 ```
 
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_buttons.png" alt="Ready Buttons" height="500"/>
-
 ### 3. ReadyIconButton
 An icon-only button with support for badges, tooltips, and rounded or rectangular shapes.
 
@@ -114,8 +112,6 @@ ReadyIconButton.solid(
 ),
 ```
 
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_buttons.png" alt="Ready Buttons" height="500"/>
-
 ### 4. ReadyElevatedButton
 A customizable elevated button with optional icons and predefined size variants.
 
@@ -136,8 +132,6 @@ ReadyElevatedButton.small(
   textColor: Colors.white,
 ),
 ```
-
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_buttons.png" alt="Ready Buttons" height="500"/>
 
 ### 5. ReadyEmptyWidget
 A widget for empty states with an animated icon, title, subtitle, and optional additional widget.
@@ -215,8 +209,6 @@ ReadyNetworkImage(
 ),
 ```
 
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_images.png" alt="Ready Images" height="500"/>
-
 ### 8. ReadyInput
 A customizable text input field with support for prefix/suffix icons, validation, and decoration styles.
 
@@ -263,9 +255,6 @@ ReadyPhoneInput(
       value!.length < 10 ? 'Phone number too short' : null,
 ),
 ```
-
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_inputs.png" alt="Ready Inputs" height="500"/>
-<img src="https://raw.githubusercontent.com/chandabdullah/ready_widgets/main/assets/ready_inputs_1.png" alt="Ready Inputs 1" height="500"/>
 
 ### 10. ReadyShimmer
 A dependency-free shimmer effect for loading placeholders.
