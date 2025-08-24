@@ -69,7 +69,8 @@ class ReadyAvatar extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color:
-            backgroundColor ?? Theme.of(context).primaryColor.withOpacity(0.3),
+            backgroundColor ??
+            Theme.of(context).primaryColor.withAlpha((0.3 * 255).toInt()),
         shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
         borderRadius: isCircular ? null : BorderRadius.circular(borderRadius),
       ),

@@ -1,6 +1,6 @@
 name: ready_widgets
 description: "Ready made widget to ease your work like inputs, buttons, etc. for Flutter."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/chandabdullah/ready_widgets
 
 environment:
